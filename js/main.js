@@ -110,6 +110,8 @@ function gameOnePlayer(){
                    })
                 })
             }
+
+            // MINMAX
     
             if(playerOn == "O" && playerClick == true){
                 setTimeout(() => {
