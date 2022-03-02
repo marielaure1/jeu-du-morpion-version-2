@@ -1,0 +1,344 @@
+/* GENERALE */
+
+:root {
+    font-family: 'Quantico', sans-serif;
+    --black: #000000;
+    --dark-grey: #242B36;
+    --dark-grey-active: #383E46;
+    --dark-purple: #3C1395;
+    --dark-blue: #4112FF;
+    --purple: #5E08CC;
+    --light-purple: #8208CC;
+    --light-blue: #009DDC;
+    --yellow: #E7BC00;
+    --white: #FFFFFF;
+}
+
+header{
+    height: 100vh;
+    background: linear-gradient(135deg, #4112FF, #5E08CC);
+}
+
+h1{
+    display: none;
+}
+
+.logo{
+    width: 580px;
+    margin-top: 10vh;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+/* HOME */
+.home{
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    /* display: none; */
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Choice */
+.choice{
+    color: #ffffff;
+    height: 240px;
+    width: 504px;
+    background-color: var(--light-purple);
+    border-radius: 30px;
+    margin-top: 12vh;
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 12px 12px 4px rgb(0, 0, 0, 0.25);
+}
+
+h3{
+    font-size: 24px;
+    margin: 2% 0 10% 0;
+}
+
+.marks{
+    height: 47%;
+    width: 100%;
+    background-color: var(--dark-grey);
+    border-radius: 16px;
+    box-sizing: border-box;
+    padding: 9px;
+    display: grid;
+    gap: 6px;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 15px;
+}
+
+.marks .cross{
+    background: linear-gradient(to right, #242B36 50%, #383E46 50%) left;
+}
+
+.marks .circle{
+    background: linear-gradient(to left, #242B36 50%, #383E46 50%) right;
+}
+
+.marks .cross, .marks .circle{
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-size: 200% 100%;
+    transition: .5s ease-out;
+}
+
+
+
+.marks .cross path{
+    fill: var(--dark-grey-active);
+}
+
+.marks .circle path{
+    stroke: var(--dark-grey-active);
+}
+
+.marks .cross.selected{
+    background-position: right;
+}
+.marks .circle.selected{
+    background-position: left;
+}
+
+.marks .cross.selected path{
+    fill: var(--light-blue);
+}
+.marks .circle.selected path{
+    stroke: var(--yellow);
+    
+}
+
+.marks svg{
+    height: 50%;
+}
+
+.choice h4{
+    font-size: 14px;
+}
+
+/* BOUTONS */
+.btn-1{
+    display: block;
+    font-size: 24px;
+    color: var(--white);
+    padding: 30px 0;
+    width: 233px;
+    border-radius: 22px;
+    text-align: center;
+    box-shadow: 12px 12px 4px rgb(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+/* Player */
+
+.players{
+    height: 84px;
+    width: 35%;
+    margin: 45px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.players a{
+    background-color: var(--dark-grey-active);
+}
+
+.players .selected{
+    background-color: var(--light-blue);
+}
+
+
+/* Play */
+
+.play{
+    background-color: var(--yellow);
+}
+
+
+/* CHARGEMENT */
+.chargement{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 30vh;
+}
+
+/* GAME */
+
+.game{
+    display: none;
+    position: relative;
+    /* display: flex; */
+    align-items: center;
+    flex-direction: column;
+    height: fit-content;
+    width: 100%;
+}
+
+/* actions */
+.actions{
+    margin: 10vh 0 21px 0;
+    height: 60px;
+    width: 400px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.btn-2{
+    background-color: var(--dark-purple);
+    border-radius: 10px;
+    box-shadow: 0 4px 2px rgb(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-2 img{
+    height: 43px;
+}
+
+/* Cases */
+.cases{
+    margin-bottom: 45px;
+    width: 400px;
+    height: 400px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 21px 15px;
+}
+
+.case{
+    background-color: var(--dark-purple);
+    border-radius: 14px;
+    box-shadow: 0 6px 1px rgb(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.case.win{
+    background-color: var(--white);
+}
+
+.case .markOn{
+    height: 50px;
+    width: 50px;
+}
+
+/* Statut */
+.statut{
+    margin-bottom: 40px;
+    text-align: center;
+    display: flex;
+}
+
+.statut p{
+    font-size: 24px;
+    color: var(--white);
+}
+
+.statut svg{
+    height: 18px;
+}
+
+/* Chrono */
+.chrono{
+    background-color: var(--dark-purple);
+    border-radius: 10px;
+    box-shadow: 0 4px 2px rgb(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 186px;
+}
+
+.chrono p{
+    color: var(--white);
+    font-size: 24px;
+}
+
+/* Stats */
+.stats{
+    position: absolute;
+    top: 10vh;
+    right: 5%;
+    height: 218px;
+    width: 204px;
+    border-radius: 20px;
+    background-color: var(--light-purple);
+    box-shadow: 8px 8px 4px rgb(0, 0, 0, 0.25);
+}
+
+/* END */
+.end{
+    display: none;
+    background-color: rgb(65, 18, 255, 0.65);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    color: var(--white);
+}
+
+.winner{
+    margin-top: 30vh;
+    display: flex;
+    justify-content: center;
+}
+
+.winner p{
+    font-size: 64px;
+}
+
+.winner img{
+    height: 49px;
+    width: 49px;
+    margin-right: 20px;
+}
+
+.actions-end{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 5vh 0;
+}
+
+.btn-3{
+    background-color: var(--dark-purple);
+    border-radius: 10px;
+    box-shadow: 0 4px 2px rgb(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    cursor: pointer;
+    height: 60px;
+    width: 120px;
+}
+
+.btn-3 img{
+    height: 43px;
+}
+
+.btn-3 .return-home{
+    margin-right: 20px;
+}
+
+.time{
+    font-size: 36px;
+    text-align: center;
+}

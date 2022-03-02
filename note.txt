@@ -1,0 +1,182 @@
+- Le premier joueur est X (playerON)
+
+- cases.forEach = recupere chaque cases
+-> ON EST DANS UNE CASE
+
+  - generer un nb aleatoire
+  - caseMark.addEventListener = click de la case dans laquel on est
+  -> ON EST DANS LA CASE CLICKE
+
+    - IF = si la case n'est pas vide ou le jeu n'a pas commencer
+
+    - IF = le joueur a choisi X 
+
+      - on mark x dans la case dans l'array
+      - on mark x dans la case sur l'ecran
+      - on ecrit que c'est le tour de X
+
+      - SetTimeout = automatisation apres 1s
+
+        -IF = si la case qui a pour index le nb aleatoire est vide
+
+          - on marque "O" dans la case[nb] dans l'rarray
+          - on marque "o" dans la case[nb] sur l'ecran
+          - on ecrit que c'est le tour de O
+
+        - ELSE = sinon on regenere un nb aleatoire 
+
+          - IF = si la case qui a pour index le nb aleatoire est vide
+
+            - on marque "O" dans la case[nb] dans l'rarray
+            - on marque "o" dans la case[nb] sur l'ecran
+            - on ecrit que c'est le tour de O
+
+    - IF = le joueur a choisi O
+    - playerON = si playerON est X alors playerOn devient O
+                 si playerOn est O alors playerOn devient X
+    
+
+
+
+
+function gameOnePlayer(){
+    console.log("ONE")
+    // markChoice 
+
+    // playerOn = "X"
+
+
+    
+    cases.forEach((caseMark, index) => {   
+        let nb = getRandomInt(0, 9)
+
+        caseMark.addEventListener("click", () => {
+            console.log(index)
+
+            if(caseStatut[index] != "" || !gameSatut){
+                return
+            }
+
+            // caseStatut[index] = playerOn
+            // console.log(caseStatut)
+            
+            if(markChoice == "X"){
+                console.log("Le joueur est X")
+                
+
+                caseStatut[index] = "X"
+                caseMark.innerHTML = `<img class="markOn" src="./images/icon-cross.svg">`
+                tour.innerHTML = `${cross}`
+                
+
+                setTimeout(() => {
+                    console.log("nb = ", nb)
+                    if(caseStatut[nb] == ""){
+                        caseStatut[nb] = "O"
+                        cases[nb].innerHTML = `<img class="markOn" src="./images/icon-circle.svg">`
+                        tour.innerHTML = `${circle}`
+                    }
+                    else{
+                        nb = getRandomInt(0, 9)
+                        if(caseStatut[nb] == ""){
+                            caseStatut[nb] = "O"
+                            cases[nb].innerHTML = `<img class="markOn" src="./images/icon-circle.svg">`
+                            tour.innerHTML = `${circle}`
+                        }
+                        
+                    }
+                }, 1000);
+
+                console.log(caseStatut)
+            }
+
+            if(markChoice == "O"){
+                console.log("Le joueur est O")
+            }
+
+            
+
+            playerOn = playerOn == "X" ? "O" : "X"
+        })
+    }) 
+}
+
+
+
+// MINIMAX
+    function minimax(gameData, PLAYER){
+        // BASE
+        if( isWinner(gameData, player.computer) ) return { evaluation : +10 };
+        if( isWinner(gameData, player.man)      ) return { evaluation : -10 };
+        if( isTie(gameData)                     ) return { evaluation : 0 };
+
+        // LOOK FOR EMTY SPACES
+        let EMPTY_SPACES = getEmptySpaces(gameData);
+
+        // SAVE ALL MOVES AND THEIR EVALUATIONS
+        let moves = [];
+
+        // LOOP OVER THE EMPTY SPACES TO EVALUATE THEM
+        for( let i = 0; i < EMPTY_SPACES.length; i++){
+            // GET THE ID OF THE EMPTY SPACE
+            let id = EMPTY_SPACES[i];
+
+            // BACK UP THE SPACE
+            let backup = gameData[id];
+
+            // MAKE THE MOVE FOR THE PLAYER
+            gameData[id] = PLAYER;
+
+            // SAVE THE MOVE'S ID AND EVALUATION
+            let move = {};
+            move.id = id;
+            // THE MOVE EVALUATION
+            if( PLAYER == player.computer){
+                move.evaluation = minimax(gameData, player.man).evaluation;
+            }else{
+                move.evaluation = minimax(gameData, player.computer).evaluation;
+            }
+
+            // RESTORE SPACE
+            gameData[id] = backup;
+
+            // SAVE MOVE TO MOVES ARRAY
+            moves.push(move);
+        }
+
+        // MINIMAX ALGORITHM
+        let bestMove;
+
+        if(PLAYER == player.computer){
+            // MAXIMIZER
+            let bestEvaluation = -Infinity;
+            for(let i = 0; i < moves.length; i++){
+                if( moves[i].evaluation > bestEvaluation ){
+                    bestEvaluation = moves[i].evaluation;
+                    bestMove = moves[i];
+                }
+            }
+        }else{
+            // MINIMIZER
+            let bestEvaluation = +Infinity;
+            for(let i = 0; i < moves.length; i++){
+                if( moves[i].evaluation < bestEvaluation ){
+                    bestEvaluation = moves[i].evaluation;
+                    bestMove = moves[i];
+                }
+            }
+        }
+
+        return bestMove;
+    }
+
+    // GET EMPTY SPACES
+    function getEmptySpaces(gameData){
+        let EMPTY = [];
+
+        for( let id = 0; id < gameData.length; id++){
+            if(!gameData[id]) EMPTY.push(id);
+        }
+
+        return EMPTY;
+    }
